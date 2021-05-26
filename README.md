@@ -5,7 +5,8 @@ Python API wrapper for [WorldData.AI](https://documenter.getpostman.com/view/509
 - From pypi:
 `pip3 install worlddata`
 - From GitHub:
-Clone our repository and `python3 setup.py install`
+Clone our repository and `python3 setup.py install` Or `pip install git+https://github.com/worlddata-ai/python-api.git`
+  
 
 ### Requirements
 - [requests](https://github.com/kennethreitz/requests)
@@ -16,7 +17,7 @@ from pprint import pprint
 from worlddata.worlddata import WorldData
 
 worlddata = WorldData('auth_token', '1212312-12312312')
-pprint(worlddata.search('worlddata'))
+pprint(worlddata.search(search_text='worlddata'))
 ```
 
 *note*: every method returns a [requests](https://github.com/kennethreitz/requests) Response object.
