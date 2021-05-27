@@ -11,7 +11,7 @@ class WorldDataBase:
     def __init__(
         self,
         auth_token=None,
-        server_url="http://localhost:8080",
+        server_url="https://zdaly.com",
         ssl_verify=True,
         proxies=None,
         timeout=30,
