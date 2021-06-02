@@ -10,11 +10,11 @@ class WorldDataBase:
 
     def __init__(
         self,
-        auth_token=None,
+        auth_token,
         server_url="https://zdaly.com",
         ssl_verify=True,
         proxies=None,
-        timeout=30,
+        timeout=60,
         session=None,
         client_certs=None,
     ):
@@ -26,7 +26,7 @@ class WorldDataBase:
         self.timeout = timeout
         self.req = session or requests
         if not auth_token:
-            raise WorldDataException("Invalid API Key")
+            raise WorldDataException("API Key not provided")
         self.headers["api-key"] = auth_token
 
         self.headers['Content-type'] = 'application/json'
@@ -52,7 +52,7 @@ class WorldDataBase:
             timeout=self.timeout,
         )
         self.parse_response_codes(response)
-        json_data = json.loads(response.text)
+        json_data = response.json()
         return json_data['responseEntity']
 
     def call_api_get(self, method, **kwargs):
@@ -74,33 +74,14 @@ class WorldDataBase:
             timeout=self.timeout,
         )
         self.parse_response_codes(response)
-        json_data = json.loads(response.text)
+        json_data = response.json()
         return json_data['responseEntity']
 
     def call_api_post(self, method, files=None, use_json=None, **kwargs):
         reduced_args = self.__reduce_kwargs(kwargs)
-        if use_json is None:
-            # see https://requests.readthedocs.io/en/master/user/quickstart/#more-complicated-post-requests
-            # > The json parameter is ignored if either data or files is passed.
-            # If files are sent, json should not be used
-            use_json = files is None
-        if use_json:
-            response = self.req.post(
-                self.server_url + self.API_path + method,
-                json=reduced_args,
-                files=files,
-                headers=self.headers,
-                verify=self.ssl_verify,
-                cert=self.cert,
-                proxies=self.proxies,
-                timeout=self.timeout,
-            )
-            self.parse_response_codes(response)
-            json_data = json.loads(response.text)
-            return json_data['responseEntity']
         response = self.req.post(
             self.server_url + self.API_path + method,
-            data=reduced_args,
+            json=reduced_args,
             files=files,
             headers=self.headers,
             verify=self.ssl_verify,
@@ -109,7 +90,7 @@ class WorldDataBase:
             timeout=self.timeout,
         )
         self.parse_response_codes(response)
-        json_data = json.loads(response.text)
+        json_data = response.json()
         return json_data['responseEntity']
 
     @staticmethod
@@ -118,7 +99,7 @@ class WorldDataBase:
         if response.status_code == 200:
             return
 
-        json_data = json.loads(response.text)
+        json_data = response.json()
 
         if response.status_code == 400:
             raise WorldDataException(json_data['responseMessage'])
