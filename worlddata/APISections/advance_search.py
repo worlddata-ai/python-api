@@ -74,7 +74,6 @@ class WorldDataAdvanceSearch(WorldDataBase):
                             count = len(rg.findall(join_list))
                             data_item['weight'] += count
 
-                print(data_item)
                 data_list.append(data_item)
         return data_list
 
