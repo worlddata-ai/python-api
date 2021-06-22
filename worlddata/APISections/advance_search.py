@@ -44,7 +44,6 @@ class WorldDataAdvanceSearch(WorldDataBase):
                 # insert value in str2
                 str2.append(i)
 
-        print(lines)
         for i in range(0, len(str2)):
             if len(str2[i]) > 1:
                 obj = {
@@ -57,7 +56,7 @@ class WorldDataAdvanceSearch(WorldDataBase):
 
         data = data[0:25:]
 
-        data_list = [];
+        data_list = []
 
         for fromIndex, fromItem in enumerate(data):
             for toIndex, toItem in enumerate(data):
