@@ -1,5 +1,5 @@
 ## WorldData.AI
-Python API wrapper for [WorldData.AI](https://documenter.getpostman.com/view/5099717/TzRa6jAj)
+Python API wrapper for [WorldData.AI](https://worlddata.ai)
 
 ### Installation
 - From pypi:
