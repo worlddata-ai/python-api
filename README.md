@@ -16,7 +16,7 @@ Clone our repository and `python3 setup.py install` Or `pip install git+https://
 from pprint import pprint
 from worlddata.worlddata import WorldData
 
-worlddata = WorldData(auth_toke = '1212312-12312312')
+worlddata = WorldData(auth_token = '1212312-12312312')
 pprint(worlddata.search(search_text = 'worlddata'))
 ```
 
